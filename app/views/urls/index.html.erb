@@ -12,10 +12,11 @@
 <% @urls.each do |url| %>
   <tr>
     <td><%= url.original_url %></td>
-    <td><%= url.short_url %></td>
+    <td><%= link_to url.short_url, url.original_url %></td>
     <td><%= link_to 'Show', url %></td>
     <td><%= link_to 'Edit', edit_url_path(url) %></td>
     <td><%= link_to 'Destroy', url, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+	
   </tr>
 <% end %>
 </table>

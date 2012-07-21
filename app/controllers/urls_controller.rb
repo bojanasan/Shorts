@@ -1,6 +1,7 @@
 class UrlsController < ApplicationController
   # GET /urls
   # GET /urls.json
+  
   def index
     @urls = Url.all
 
@@ -13,12 +14,12 @@ class UrlsController < ApplicationController
   # GET /urls/1
   # GET /urls/1.json
   def show
-    @url = Url.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @url }
-    end
+    @url = Url.find_by_short_url(params[:short_url])
+    redirect_to @url.original_url
+    # respond_to do |format|
+    #   format.html # show.html.erb
+    #   format.json { render json: @url }
+    # end
   end
 
   # GET /urls/new
@@ -26,10 +27,10 @@ class UrlsController < ApplicationController
   def new
     @url = Url.new
 
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @url }
-    end
+    # respond_to do |format|
+    #     format.html # new.html.erb
+    #     format.json { render json: @url }
+    #   end
   end
 
   # GET /urls/1/edit
@@ -41,15 +42,18 @@ class UrlsController < ApplicationController
   # POST /urls.json
   def create
     @url = Url.new(params[:url])
-
-    respond_to do |format|
+    
+    # respond_to do |format|
       if @url.save
-        format.html { redirect_to @url, notice: 'Url was successfully created.' }
-        format.json { render json: @url, status: :created, location: @url }
+        # format.html { redirect_to @url, notice: 'Url was successfully created.' }
+
+        redirect_to urls_path
+        # format.json { render json: @url, status: :created, location: @url }
       else
-        format.html { render action: "new" }
-        format.json { render json: @url.errors, status: :unprocessable_entity }
-      end
+        # format.html { render action: "new" }
+        redirect_to urls_path
+        # format.json { render json: @url.errors, status: :unprocessable_entity }
+      # end
     end
   end
 
